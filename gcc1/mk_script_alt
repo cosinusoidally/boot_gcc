@@ -57,8 +57,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes ${builddir}/gencodes.o 
 ./move-if-change tmp-insn-codes.h insn-codes.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genconfig.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/genconfig genconfig.o ${builddir}/rtl.o ${builddir}/obstack.o
-${bd}/genconfig md > tmp-insn-config.h
-./move-if-change tmp-insn-config.h insn-config.h
+${bd}/genconfig md > ${bd}/insn-config.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expr.o expr.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o stmt.o stmt.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expmed.o expmed.c
@@ -68,36 +67,36 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o varasm.o varasm.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o symout.o symout.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o dbxout.o dbxout.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o sdbout.o sdbout.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o emit-rtl.o emit-rtl.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I${bd}  -c -o emit-rtl.o emit-rtl.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genemit.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genemit genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genemit md > tmp-insn-emit.c
 ./move-if-change tmp-insn-emit.c insn-emit.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-emit.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd} -c insn-emit.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o integrate.o integrate.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o jump.o jump.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cse.o cse.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o loop.o loop.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o cse.o cse.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o loop.o loop.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o flow.o flow.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stupid.o stupid.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o combine.o combine.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o regclass.o regclass.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o local-alloc.o local-alloc.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o global-alloc.o global-alloc.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o reload.o reload.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o reload1.o reload1.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o combine.o combine.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o regclass.o regclass.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o local-alloc.o local-alloc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o global-alloc.o global-alloc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o reload.o reload.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o reload1.o reload1.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genpeep.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genpeep genpeep.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genpeep md > tmp-insn-peep.c
 ./move-if-change tmp-insn-peep.c insn-peep.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-peep.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o final.o final.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o recog.o recog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o final.o final.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o recog.o recog.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genrecog.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genrecog genrecog.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genrecog md > tmp-insn-recog.c
 ./move-if-change tmp-insn-recog.c insn-recog.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-recog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd} -c insn-recog.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genextract.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genextract genextract.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genextract md > tmp-insn-extract.c
