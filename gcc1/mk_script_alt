@@ -49,7 +49,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/fold-const.o fol
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/rtl.o rtl.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c -o ${builddir}/genflags.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
-${builddir}/genflags md > insn-flags.h
+${builddir}/genflags md > ${builddir}/insn-flags.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./gencodes md > tmp-insn-codes.h
@@ -58,11 +58,11 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genconfig.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genconfig genconfig.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genconfig md > tmp-insn-config.h
 ./move-if-change tmp-insn-config.h insn-config.h
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o expr.o expr.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stmt.o stmt.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o expmed.o expmed.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expr.o expr.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o stmt.o stmt.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expmed.o expmed.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o explow.o explow.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o optabs.o optabs.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o optabs.o optabs.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o varasm.o varasm.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o symout.o symout.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o dbxout.o dbxout.c
@@ -73,7 +73,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genemit genemit.o ${builddir}/rt
 ./genemit md > tmp-insn-emit.c
 ./move-if-change tmp-insn-emit.c insn-emit.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-emit.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o integrate.o integrate.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o integrate.o integrate.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o jump.o jump.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cse.o cse.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o loop.o loop.c
@@ -106,7 +106,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genoutput.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genoutput md > tmp-insn-output.c
 ./move-if-change tmp-insn-output.c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-output.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir} -c insn-output.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
