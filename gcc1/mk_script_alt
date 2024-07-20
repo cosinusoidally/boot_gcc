@@ -1,7 +1,6 @@
 ./mk_build_clean
 
-builddir=../build/
-bd=${builddir}
+bd=../build/
 srcdir=../gcc-1.27/
 sd=${srcdir}
 incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${sd} "
@@ -13,8 +12,8 @@ cd gcc-1.27
 
 pushd .
 
-mkdir ${builddir}/libtemp
-cd ${builddir}/libtemp;
+mkdir ${bd}/libtemp
+cd ${bd}/libtemp;
 for name in _eprintf _umulsi3 _mulsi3 _udivsi3 _divsi3 _umodsi3 _modsi3 _lshrsi3 _lshlsi3 _ashrsi3 _ashlsi3 _divdf3 _muldf3 _negdf2 _adddf3 _subdf3 _cmpdf2 _fixunsdfsi _fixunsdfdi _fixdfsi _fixdfdi _floatsidf _floatdidf _truncdfsf2 _extendsfdf2 _addsf3 _negsf2 _subsf3 _cmpsf2 _mulsf3 _divsf3; \
 do \
   echo ${name}; \
@@ -31,7 +30,7 @@ if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
 popd
 
 echo "building gcc driver"
-cc ${incs} -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${builddir}/gcc.o
+cc ${incs} -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${bd}/gcc.o
 cc ${incs} -c -o ${bd}/version.o version.c
 cc ${incs} -c -o ${bd}/obstack.o obstack.c
 cc ${incs} -o ${bd}/gcc ${bd}/gcc.o ${bd}/version.o ${bd}/obstack.o
@@ -40,7 +39,7 @@ echo "driver built"
 cc ${incs} -c -o ${bd}/toplev.o toplev.c
 
 # FIXME ljw this should be regenerated with bison
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-parse.tab.o c-parse.tab.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${bd}/c-parse.tab.o c-parse.tab.c
 
 for i in tree print-tree c-decl c-typeck c-convert stor-layout fold-const rtl genflags;
 do
@@ -50,7 +49,7 @@ done
 cc -o ${bd}/genflags ${bd}/genflags.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genflags md > ${bd}/insn-flags.h
 cc ${incs} -c gencodes.c -o ${bd}/gencodes.o
-cc -o ${bd}/gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -o ${bd}/gencodes ${bd}/gencodes.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/gencodes md > ${bd}/insn-codes.h
 cc ${incs} -c genconfig.c -o ${bd}/genconfig.o
 cc ${incs} -o ${bd}/genconfig ${bd}/genconfig.o ${bd}/rtl.o ${bd}/obstack.o
@@ -79,7 +78,7 @@ do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
 
-cc -o ${bd}/genrecog ${bd}/genrecog.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -o ${bd}/genrecog ${bd}/genrecog.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genrecog md > ${bd}/insn-recog.c
 cc ${incs} -c ${bd}/insn-recog.c -o ${bd}/insn-recog.o
 
@@ -89,7 +88,7 @@ ${bd}/genextract md > ${bd}/insn-extract.c
 cc ${incs} -c ${bd}/insn-extract.c -o ${bd}/insn-extract.o
 
 cc ${incs} -c genoutput.c -o ${bd}/genoutput.o
-cc -o ${bd}/genoutput ${bd}/genoutput.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -o ${bd}/genoutput ${bd}/genoutput.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genoutput md > ${bd}/insn-output.c
 
 cc ${incs} -c ${bd}/insn-output.c -o ${bd}/insn-output.o
