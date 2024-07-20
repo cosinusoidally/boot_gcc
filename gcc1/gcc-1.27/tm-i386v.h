@@ -32,10 +32,10 @@ and this notice must be preserved on all copies.  */
 /* Use crt1.o as a startup file and crtn.o as a closing file.  */
 
 #define STARTFILE_SPEC  \
-  "%{pg:gcrt1.o%s}%{!pg:%{p:mcrt1.o%s}%{!p:crt1.o%s}} crti.o%s"
+  "/usr/lib/i386-linux-gnu/crt1.o /usr/lib/i386-linux-gnu/crti.o%s"
 
-#define LIB_SPEC "%{!p:%{!pg:-lc}}%{p:-lc_p}%{pg:-lc_p} crtn.o%s" \
-    " -dynamic-linker ld-linux.so.2%s"
+#define LIB_SPEC "%{!p:%{!pg:-lc}}%{p:-lc_p}%{pg:-lc_p} /usr/lib/i386-linux-gnu/crtn.o%s" \
+    " -dynamic-linker /lib/ld-linux.so.2%s"
 
 /* Specify predefined symbols in preprocessor.  */
 
