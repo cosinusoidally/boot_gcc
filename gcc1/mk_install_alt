@@ -10,7 +10,7 @@ mkdir -p /tmp/gcc1/gcc-1.27/lib
 install ${bd}/cc1 /tmp/gcc1/gcc-1.27/lib/gcc-cc1
 install -c -m 755 ${bd}/gnulib /tmp/gcc1/gcc-1.27/lib/gcc-gnulib
 if [ -f /usr/bin/ranlib ] ; then  ranlib /tmp/gcc1/gcc-1.27/lib/gcc-gnulib ;fi
-install cpp /tmp/gcc1/gcc-1.27/lib/gcc-cpp
+install ${bd}/cpp /tmp/gcc1/gcc-1.27/lib/gcc-cpp
 install ${bd}/gcc /tmp/gcc1/gcc-1.27/bin
 mkdir /tmp/gcc1/gcc-1.27/lib/gcc-include
 cp stddef.h stdarg.h assert.h varargs.h va-*.h limits.h /tmp/gcc1/gcc-1.27/lib/gcc-include
