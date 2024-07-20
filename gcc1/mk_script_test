@@ -1,8 +1,11 @@
 set -x
 
 ./mk_clean
+
+set -e
 ./mk_script_alt
 ./mk_install_alt
+set +e
 
 cd gcc-1.27
 
