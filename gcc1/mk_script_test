@@ -28,4 +28,6 @@ diff -u -s cpp stage2/cpp
 diff -u -s gcc stage2/gcc
 diff -u -s cc1 stage2/cc1
 
+cd ..
+./mk_clean
 echo "test done"

@@ -36,7 +36,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/obstack.o obstac
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/gcc ${builddir}/gcc.o ${builddir}/version.o ${builddir}/obstack.o
 echo "driver built"
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o toplev.o toplev.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/toplev.o toplev.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-parse.tab.o c-parse.tab.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o tree.o tree.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o print-tree.o print-tree.c
@@ -107,7 +107,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o rtl.o ${bu
 ./genoutput md > tmp-insn-output.c
 ./move-if-change tmp-insn-output.c insn-output.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 toplev.o ${builddir}/version.o c-parse.tab.o tree.o print-tree.o c-decl.o c-typeck.o c-convert.o stor-layout.o fold-const.o rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o c-parse.tab.o tree.o print-tree.o c-decl.o c-typeck.o c-convert.o stor-layout.o fold-const.o rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
