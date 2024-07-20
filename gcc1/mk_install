@@ -1,0 +1,10 @@
+mkdir -p /tmp/gcc1/gcc-1.27/bin
+mkdir -p /tmp/gcc1/gcc-1.27/lib
+install cc1 /tmp/gcc1/gcc-1.27/lib/gcc-cc1
+install -c -m 755 gnulib /tmp/gcc1/gcc-1.27/lib/gcc-gnulib
+if [ -f /usr/bin/ranlib ] ; then  ranlib /tmp/gcc1/gcc-1.27/lib/gcc-gnulib ;fi
+install cpp /tmp/gcc1/gcc-1.27/lib/gcc-cpp
+install gcc /tmp/gcc1/gcc-1.27/bin
+mkdir /tmp/gcc1/gcc-1.27/lib/gcc-include
+cd /tmp/gcc1/gcc-1.27/lib/gcc-include; rm -f stddef.h stdarg.h assert.h varargs.h va-*.h limits.h
+cp stddef.h stdarg.h assert.h varargs.h va-*.h limits.h /tmp/gcc1/gcc-1.27/lib/gcc-include
