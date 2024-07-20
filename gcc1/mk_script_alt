@@ -37,7 +37,7 @@ cc ${incs} -c -o ${bd}/obstack.o obstack.c
 cc ${incs} -o ${bd}/gcc ${bd}/gcc.o ${bd}/version.o ${bd}/obstack.o
 echo "driver built"
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${bd}/toplev.o toplev.c
+cc ${incs} -c -o ${bd}/toplev.o toplev.c
 
 # FIXME ljw this should be regenerated with bison
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-parse.tab.o c-parse.tab.c
@@ -47,10 +47,10 @@ do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
-${builddir}/genflags md > ${builddir}/insn-flags.h
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c -o ${builddir}/gencodes.o
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -o ${bd}/genflags ${bd}/genflags.o ${bd}/rtl.o ${bd}/obstack.o
+${bd}/genflags md > ${bd}/insn-flags.h
+cc ${incs} -c gencodes.c -o ${bd}/gencodes.o
+cc -o ${bd}/gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/gencodes md > ${bd}/insn-codes.h
 cc ${incs} -c genconfig.c -o ${bd}/genconfig.o
 cc ${incs} -o ${bd}/genconfig ${bd}/genconfig.o ${bd}/rtl.o ${bd}/obstack.o
