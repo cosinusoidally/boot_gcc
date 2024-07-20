@@ -87,11 +87,11 @@ cc -o ${bd}/genrecog ${bd}/genrecog.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genrecog md > ${bd}/insn-recog.c
 cc ${incs} -c ${bd}/insn-recog.c -o ${bd}/insn-recog.o
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genextract.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genextract genextract.o ${builddir}/rtl.o ${builddir}/obstack.o
-./genextract md > tmp-insn-extract.c
-./move-if-change tmp-insn-extract.c insn-extract.c
+cc ${incs} -c genextract.c -o ${bd}/genextract.o
+cc ${incs} -o ${bd}/genextract ${bd}/genextract.o ${bd}/rtl.o ${bd}/obstack.o
+${bd}/genextract md > insn-extract.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-extract.c
+
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genoutput.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genoutput md > tmp-insn-output.c
