@@ -28,10 +28,10 @@ pwd
 if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
 
 popd
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${builddir}/gcc.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o version.o version.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o obstack.o obstack.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gccnew gcc.o version.o obstack.o   
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gccnew ${builddir}/gcc.o version.o obstack.o
 mv gccnew gcc
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o toplev.o toplev.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-parse.tab.o c-parse.tab.c
