@@ -60,17 +60,15 @@ cc ${incs} -c genconfig.c -o ${bd}/genconfig.o
 cc ${incs} -o ${bd}/genconfig ${bd}/genconfig.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genconfig md > ${bd}/insn-config.h
 
-for i in expr stmt expmed explow optabs varasm;
+for i in expr stmt expmed explow optabs varasm symout dbxout sdbout emit-rtl genemit;
 do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
-cc ${incs} -c -o ${bd}/symout.o symout.c
-cc ${incs} -c -o ${bd}/dbxout.o dbxout.c
-cc ${incs} -c -o ${bd}/sdbout.o sdbout.c
-cc ${incs} -c -o ${bd}/emit-rtl.o emit-rtl.c
-cc ${incs} -c -o ${bd}/genemit.o genemit.c
+
 cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genemit md > ${bd}/insn-emit.c
+
+
 cc ${incs} -o ${bd}/insn-emit.o -c ${bd}/insn-emit.c
 cc ${incs} -c -o ${bd}/integrate.o integrate.c
 cc ${incs} -c -o ${bd}/jump.o jump.c
