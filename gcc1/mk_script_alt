@@ -28,11 +28,14 @@ pwd
 if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
 
 popd
+
+echo "building gcc driver"
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${builddir}/gcc.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/version.o version.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/obstack.o obstack.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gccnew ${builddir}/gcc.o ${builddir}/version.o ${builddir}/obstack.o
-mv gccnew gcc
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/gcc ${builddir}/gcc.o ${builddir}/version.o ${builddir}/obstack.o
+echo "driver built"
+
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o toplev.o toplev.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-parse.tab.o c-parse.tab.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o tree.o tree.c
