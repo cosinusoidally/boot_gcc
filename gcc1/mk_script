@@ -1,0 +1,99 @@
+cd gcc-1.27
+
+mkdir libtemp
+cd libtemp; \
+rm -f gnulib; \
+for name in _eprintf _umulsi3 _mulsi3 _udivsi3 _divsi3 _umodsi3 _modsi3 _lshrsi3 _lshlsi3 _ashrsi3 _ashlsi3 _divdf3 _muldf3 _negdf2 _adddf3 _subdf3 _cmpdf2 _fixunsdfsi _fixunsdfdi _fixdfsi _fixdfdi _floatsidf _floatdidf _truncdfsf2 _extendsfdf2 _addsf3 _negsf2 _subsf3 _cmpsf2 _mulsf3 _divsf3; \
+do \
+  echo ${name}; \
+  rm -f ${name}.c; \
+  ln ../gnulib.c ${name}.c; \
+  cc -m32 -O -I.. -c -DL${name} ${name}.c; \
+  ar qc gnulib ${name}.o; \
+done
+mv libtemp/gnulib .
+rm -rf libtemp
+if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o version.o version.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o obstack.o obstack.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gccnew gcc.o version.o obstack.o   
+mv gccnew gcc
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o toplev.o toplev.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-parse.tab.o c-parse.tab.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o tree.o tree.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o print-tree.o print-tree.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-decl.o c-decl.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-typeck.o c-typeck.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o c-convert.o c-convert.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stor-layout.o stor-layout.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o fold-const.o fold-const.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o rtl.o rtl.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genflags genflags.o rtl.o obstack.o   
+./genflags md > tmp-insn-flags.h
+./move-if-change tmp-insn-flags.h insn-flags.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes gencodes.o rtl.o obstack.o   
+./gencodes md > tmp-insn-codes.h
+./move-if-change tmp-insn-codes.h insn-codes.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genconfig.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genconfig genconfig.o rtl.o obstack.o   
+./genconfig md > tmp-insn-config.h
+./move-if-change tmp-insn-config.h insn-config.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o expr.o expr.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stmt.o stmt.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o expmed.o expmed.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o explow.o explow.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o optabs.o optabs.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o varasm.o varasm.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o symout.o symout.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o dbxout.o dbxout.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o sdbout.o sdbout.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o emit-rtl.o emit-rtl.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genemit.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genemit genemit.o rtl.o obstack.o   
+./genemit md > tmp-insn-emit.c
+./move-if-change tmp-insn-emit.c insn-emit.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-emit.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o integrate.o integrate.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o jump.o jump.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cse.o cse.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o loop.o loop.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o flow.o flow.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stupid.o stupid.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o combine.o combine.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o regclass.o regclass.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o local-alloc.o local-alloc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o global-alloc.o global-alloc.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o reload.o reload.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o reload1.o reload1.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genpeep.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genpeep genpeep.o rtl.o obstack.o   
+./genpeep md > tmp-insn-peep.c
+./move-if-change tmp-insn-peep.c insn-peep.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-peep.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o final.o final.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o recog.o recog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genrecog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genrecog genrecog.o rtl.o obstack.o   
+./genrecog md > tmp-insn-recog.c
+./move-if-change tmp-insn-recog.c insn-recog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-recog.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genextract.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genextract genextract.o rtl.o obstack.o   
+./genextract md > tmp-insn-extract.c
+./move-if-change tmp-insn-extract.c insn-extract.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-extract.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genoutput.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o rtl.o obstack.o   
+./genoutput md > tmp-insn-output.c
+./move-if-change tmp-insn-output.c insn-output.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-output.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 toplev.o version.o c-parse.tab.o tree.o print-tree.o c-decl.o c-typeck.o c-convert.o stor-layout.o fold-const.o rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o obstack.o   
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
+          -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cccp cccp.o cexp.o version.o obstack.o   
+rm -f cpp
+ln cccp cpp
