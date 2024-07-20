@@ -94,7 +94,9 @@ ${bd}/genoutput md > ${bd}/insn-output.c
 
 cc ${incs} -c ${bd}/insn-output.c -o ${bd}/insn-output.o
 
-cc -o ${bd}/cc1 ${bd}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o ${bd}/cse.o ${bd}/loop.o ${bd}/flow.o ${bd}/stupid.o ${bd}/combine.o ${bd}/regclass.o ${bd}/local-alloc.o ${bd}/global-alloc.o ${bd}/reload.o ${bd}/reload1.o ${bd}/insn-peep.o ${bd}/final.o ${bd}/recog.o ${bd}/insn-recog.o ${bd}/insn-extract.o ${bd}/insn-output.o ${builddir}/obstack.o
+cd ${bd}
+cc -o cc1 toplev.o version.o c-parse.tab.o tree.o print-tree.o c-decl.o c-typeck.o c-convert.o stor-layout.o fold-const.o rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o obstack.o
+cd ${sd}
 
 cc ${incs} -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c -o ${bd}/cccp.o
