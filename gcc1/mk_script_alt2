@@ -7,7 +7,7 @@ incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${sd} "
 set -x
 set -e
 
-cd gcc-1.27
+cd gcc-1.27_refactor
 
 pushd .
 
