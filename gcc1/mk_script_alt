@@ -32,13 +32,14 @@ if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
 popd
 
 echo "building gcc driver"
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${builddir}/gcc.o
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/version.o version.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/obstack.o obstack.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/gcc ${builddir}/gcc.o ${builddir}/version.o ${builddir}/obstack.o
+cc ${incs} -c -DSTANDARD_EXEC_PREFIX=\"/tmp/gcc1/gcc-1.27/lib/gcc-\" gcc.c -o ${builddir}/gcc.o
+cc ${incs} -c -o ${bd}/version.o version.c
+cc ${incs} -c -o ${bd}/obstack.o obstack.c
+cc ${incs} -o ${bd}/gcc ${bd}/gcc.o ${bd}/version.o ${bd}/obstack.o
 echo "driver built"
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/toplev.o toplev.c
+cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${bd}/toplev.o toplev.c
+
 # FIXME ljw this should be regenerated with bison
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-parse.tab.o c-parse.tab.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/tree.o tree.c
@@ -58,7 +59,7 @@ ${bd}/gencodes md > insn-codes.h
 cc ${incs} -c genconfig.c -o ${bd}/genconfig.o
 cc ${incs} -o ${bd}/genconfig ${bd}/genconfig.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genconfig md > ${bd}/insn-config.h
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expr.o expr.c
+cc ${incs} -c -o ${bd}/expr.o expr.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o stmt.o stmt.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expmed.o expmed.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o explow.o explow.c
@@ -107,7 +108,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o ${builddir
 ./genoutput md > tmp-insn-output.c
 ./move-if-change tmp-insn-output.c insn-output.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir} -c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o stmt.o expmed.o explow.o optabs.o varasm.o symout.o dbxout.o sdbout.o emit-rtl.o insn-emit.o integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
