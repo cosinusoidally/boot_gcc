@@ -69,7 +69,7 @@ cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genemit md > ${bd}/insn-emit.c
 cc ${incs} -o ${bd}/insn-emit.o -c ${bd}/insn-emit.c
 
-for i in integrate jump cse loop flow;
+for i in integrate jump cse loop flow stupid combine regclass local-alloc global-alloc reload genpeep;
 do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
