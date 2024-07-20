@@ -1,0 +1,6 @@
+rm -r /tmp/gcc1/gcc-1.27/
+cd gcc-1.27
+make clean
+rm gnulib
+rm -r stage1
+rm -r stage2
