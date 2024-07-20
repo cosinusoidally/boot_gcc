@@ -1,3 +1,15 @@
+I'm doing the build inside an Ubuntu bionic buildd:
+
+time sudo debootstrap --arch=i386 --variant=buildd bionic bionic_buildd_i386
+
+and then bind mount:
+
+/proc
+/dev
+/dev/shm
+
+into the rootfs and chroot in
+
 gcc 1.27 is patched with:
 
 https://gist.github.com/kristerw/b854b6d285e678452a44a6bcbf7ef86f/raw/gcc-1.27.patch
