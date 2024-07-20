@@ -1,3 +1,10 @@
+rm -r build
+mkdir build
+touch build/placeholder
+
+set -x
+set -e
+
 cd gcc-1.27
 
 mkdir libtemp
