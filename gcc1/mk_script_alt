@@ -65,7 +65,7 @@ do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
 
-cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -o ${bd}/genemit ${bd}/genemit.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genemit md > ${bd}/insn-emit.c
 cc ${incs} -o ${bd}/insn-emit.o -c ${bd}/insn-emit.c
 
@@ -73,8 +73,8 @@ for i in integrate jump cse loop flow stupid combine regclass local-alloc global
 do
   cc ${incs} -c -o ${bd}/$i.o $i.c
 done
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genpeep.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genpeep genpeep.o ${builddir}/rtl.o ${builddir}/obstack.o
+
+cc -o genpeep ${bd}/genpeep.o ${bd}/rtl.o ${bd}/obstack.o
 ./genpeep md > tmp-insn-peep.c
 ./move-if-change tmp-insn-peep.c insn-peep.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c insn-peep.c
