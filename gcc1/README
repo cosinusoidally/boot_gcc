@@ -1,0 +1,8 @@
+gcc 1.27 is patched with:
+
+https://gist.github.com/kristerw/b854b6d285e678452a44a6bcbf7ef86f/raw/gcc-1.27.patch
+
+and then adapted further.
+
+Initial set up was based on an adapted version of the instructions from:
+http://kristerw.blogspot.com/2019/01/building-gcc-127.html
