@@ -94,10 +94,11 @@ cc ${incs} -c ${bd}/insn-extract.c -o ${bd}/insn-extract.o
 
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genoutput.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/genoutput genoutput.o ${builddir}/rtl.o ${builddir}/obstack.o
-${bd}/genoutput md > insn-output.c
+${bd}/genoutput md > ${bd}/insn-output.c
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir} -c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o ${bd}/cse.o ${bd}/loop.o ${bd}/flow.o ${bd}/stupid.o ${bd}/combine.o ${bd}/regclass.o ${bd}/local-alloc.o ${bd}/global-alloc.o ${bd}/reload.o ${bd}/reload1.o ${bd}/insn-peep.o ${bd}/final.o ${bd}/recog.o ${bd}/insn-recog.o ${bd}/insn-extract.o insn-output.o ${builddir}/obstack.o
+cc ${incs} -c ${bd}/insn-output.c -o ${bd}/insn-output.o
+
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o ${bd}/cse.o ${bd}/loop.o ${bd}/flow.o ${bd}/stupid.o ${bd}/combine.o ${bd}/regclass.o ${bd}/local-alloc.o ${bd}/global-alloc.o ${bd}/reload.o ${bd}/reload1.o ${bd}/insn-peep.o ${bd}/final.o ${bd}/recog.o ${bd}/insn-recog.o ${bd}/insn-extract.o ${bd}/insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
