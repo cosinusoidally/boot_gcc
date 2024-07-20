@@ -6,3 +6,46 @@ and then adapted further.
 
 Initial set up was based on an adapted version of the instructions from:
 http://kristerw.blogspot.com/2019/01/building-gcc-127.html
+
+basic process is this:
+
+Downloading and preparing the source code:
+
+wget https://gcc.gnu.org/pub/gcc/old-releases/gcc-1/gcc-1.27.tar.bz2
+wget https://gist.github.com/kristerw/b854b6d285e678452a44a6bcbf7ef86f/raw/gcc-1.27.patch
+tar xf gcc-1.27.tar.bz2
+cd gcc-1.27
+patch -p1 < ../gcc-1.27.patch
+
+
+Configuring the source code
+
+ln -s config-i386v.h config.h
+ln -s tm-i386v.h tm.h
+ln -s i386.md md
+ln -s output-i386.c aux-output.c
+
+set libdir and bindir via the Makefile
+
+bindir = /tmp/gcc1/gcc-1.27/bin
+libdir = /tmp/gcc1/gcc-1.27/lib
+
+make (using the host compiler)
+
+Then do a further 2 stages building itself with itself
+
+make stage1
+make CC=stage1/gcc CFLAGS="-O -Bstage1/ -Iinclude"
+
+make stage2
+make CC=stage2/gcc CFLAGS="-O -Bstage2/ -Iinclude"
+
+verify that the last 2 stages match bit identically:
+
+diff -u -s cpp stage2/cpp
+diff -u -s gcc stage2/gcc
+diff -u -s cc1 stage2/cc1
+
+Then install with
+
+make install
