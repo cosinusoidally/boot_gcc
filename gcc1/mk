@@ -14,3 +14,6 @@ make CC=stage1/gcc CFLAGS="-Bstage1/ -Iinclude -I/usr/include/i386-linux-gnu/"
 make stage2
 make CC=stage2/gcc CFLAGS="-Bstage2/ -Iinclude -I/usr/include/i386-linux-gnu/"
 
+diff -u -s cpp stage2/cpp
+diff -u -s gcc stage2/gcc
+diff -u -s cc1 stage2/cc1
