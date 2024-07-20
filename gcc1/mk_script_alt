@@ -41,15 +41,12 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${bd}/toplev.o toplev.c
 
 # FIXME ljw this should be regenerated with bison
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-parse.tab.o c-parse.tab.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/tree.o tree.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/print-tree.o print-tree.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-decl.o c-decl.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-typeck.o c-typeck.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-convert.o c-convert.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/stor-layout.o stor-layout.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/fold-const.o fold-const.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/rtl.o rtl.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c -o ${builddir}/genflags.o
+
+for i in tree print-tree c-decl c-typeck c-convert stor-layout fold-const rtl genflags;
+do
+  cc ${incs} -c -o ${bd}/$i.o $i.c
+done
+
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${builddir}/genflags md > ${builddir}/insn-flags.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c -o ${builddir}/gencodes.o
