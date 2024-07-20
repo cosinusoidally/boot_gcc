@@ -1,5 +1,8 @@
 cd gcc-1.27
 
+set -x
+set -e
+
 builddir=../build/
 
 mkdir -p /tmp/gcc1/gcc-1.27/bin
