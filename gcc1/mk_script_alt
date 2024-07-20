@@ -53,9 +53,8 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c -o ${builddir}/genflag
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${builddir}/genflags md > ${builddir}/insn-flags.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c -o ${builddir}/gencodes.o
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
-./gencodes md > tmp-insn-codes.h
-./move-if-change tmp-insn-codes.h insn-codes.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
+${bd}/gencodes md > insn-codes.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genconfig.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/genconfig genconfig.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genconfig md > ${bd}/insn-config.h
