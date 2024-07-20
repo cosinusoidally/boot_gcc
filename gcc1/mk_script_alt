@@ -67,12 +67,12 @@ done
 
 cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genemit md > ${bd}/insn-emit.c
-
-
 cc ${incs} -o ${bd}/insn-emit.o -c ${bd}/insn-emit.c
-cc ${incs} -c -o ${bd}/integrate.o integrate.c
-cc ${incs} -c -o ${bd}/jump.o jump.c
-cc ${incs} -c -o ${bd}/cse.o cse.c
+
+for i in integrate jump cse loop flow;
+do
+  cc ${incs} -c -o ${bd}/$i.o $i.c
+done
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o loop.o loop.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o flow.o flow.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o stupid.o stupid.c
