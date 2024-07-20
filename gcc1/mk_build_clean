@@ -1,0 +1,3 @@
+rm -r build
+mkdir build
+touch build/placeholder

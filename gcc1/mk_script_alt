@@ -1,6 +1,4 @@
-rm -r build
-mkdir build
-touch build/placeholder
+./mk_build_clean
 
 builddir=../build/
 bd=${builddir}
