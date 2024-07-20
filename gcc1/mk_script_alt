@@ -3,6 +3,7 @@ mkdir build
 touch build/placeholder
 
 builddir=../build/
+bd=${builddir}
 srcdir=../gcc-1.27/
 
 set -x
@@ -50,13 +51,13 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/rtl.o rtl.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c -o ${builddir}/genflags.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${builddir}/genflags md > ${builddir}/insn-flags.h
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c -o ${builddir}/gencodes.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes ${builddir}/gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./gencodes md > tmp-insn-codes.h
 ./move-if-change tmp-insn-codes.h insn-codes.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genconfig.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genconfig genconfig.o ${builddir}/rtl.o ${builddir}/obstack.o
-./genconfig md > tmp-insn-config.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${bd}/genconfig genconfig.o ${builddir}/rtl.o ${builddir}/obstack.o
+${bd}/genconfig md > tmp-insn-config.h
 ./move-if-change tmp-insn-config.h insn-config.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o expr.o expr.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o stmt.o stmt.c
