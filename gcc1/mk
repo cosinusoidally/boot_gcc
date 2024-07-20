@@ -1,0 +1,16 @@
+./mk_clean
+
+cd gcc-1.27
+
+set -e
+
+make
+
+# must not optimize as the bionic gcc seems to have slightly miscompiled
+# the first version of gcc
+make stage1
+make CC=stage1/gcc CFLAGS="-Bstage1/ -Iinclude -I/usr/include/i386-linux-gnu/"
+
+make stage2
+make CC=stage2/gcc CFLAGS="-Bstage2/ -Iinclude -I/usr/include/i386-linux-gnu/"
+
