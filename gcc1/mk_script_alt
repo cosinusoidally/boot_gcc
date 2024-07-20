@@ -69,10 +69,9 @@ cc ${incs} -c -o ${bd}/symout.o symout.c
 cc ${incs} -c -o ${bd}/dbxout.o dbxout.c
 cc ${incs} -c -o ${bd}/sdbout.o sdbout.c
 cc ${incs} -c -o ${bd}/emit-rtl.o emit-rtl.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genemit.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genemit genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
-./genemit md > tmp-insn-emit.c
-./move-if-change tmp-insn-emit.c insn-emit.c
+cc ${incs} -c -o ${bd}/genemit.o genemit.c
+cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
+${bd}/genemit md > insn-emit.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd} -c insn-emit.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir}  -c -o integrate.o integrate.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o jump.o jump.c
