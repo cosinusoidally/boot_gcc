@@ -47,10 +47,9 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/c-convert.o c-co
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/stor-layout.o stor-layout.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/fold-const.o fold-const.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o ${builddir}/rtl.o rtl.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genflags genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
-./genflags md > tmp-insn-flags.h
-./move-if-change tmp-insn-flags.h insn-flags.h
+cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genflags.c -o ${builddir}/genflags.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o ${builddir}/genflags ${builddir}/genflags.o ${builddir}/rtl.o ${builddir}/obstack.o
+${builddir}/genflags md > insn-flags.h
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -c gencodes.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/  -o gencodes gencodes.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./gencodes md > tmp-insn-codes.h
