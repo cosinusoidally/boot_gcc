@@ -6,7 +6,7 @@ set -e
 
 make
 
-# must not optimize as the bionic gcc seems to have slightly miscompiled
+# must not optimise as the bionic gcc seems to have slightly miscompiled
 # the first version of gcc
 make stage1
 make CC=stage1/gcc CFLAGS="-Bstage1/ -Iinclude -I/usr/include/i386-linux-gnu/"
@@ -24,3 +24,16 @@ make clean
 rm gnulib
 rm -r stage1
 rm -r stage2
+
+make CC=/tmp/gcc1/gcc-1.27/bin/gcc CFLAGS="-Iinclude -I/usr/include/i386-linux-gnu/"
+
+# can now do a optimised build as we are building using gcc-1.27
+make stage1
+make CC=stage1/gcc CFLAGS="-O -Bstage1/ -Iinclude -I/usr/include/i386-linux-gnu/"
+
+make stage2
+make CC=stage2/gcc CFLAGS="-O -Bstage2/ -Iinclude -I/usr/include/i386-linux-gnu/"
+
+diff -u -s cpp stage2/cpp
+diff -u -s gcc stage2/gcc
+diff -u -s cc1 stage2/cc1
