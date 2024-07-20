@@ -5,7 +5,8 @@ touch build/placeholder
 builddir=../build/
 bd=${builddir}
 srcdir=../gcc-1.27/
-incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${srcdir} "
+sd=${srcdir}
+incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${sd} "
 
 set -x
 set -e
