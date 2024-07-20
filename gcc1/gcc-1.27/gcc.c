@@ -117,6 +117,7 @@ position among the other output files.
 #include <sys/types.h>
 #include <signal.h>
 #include <sys/file.h>
+#include <errno.h>
 #include "config.h"
 #include "obstack.h"
 
@@ -215,7 +216,7 @@ struct compiler compilers[] =
 		   %{g} %{O} %{W*} %{w} %{pedantic} %{ansi} %{traditional}\
 		   %{v:-version} %{gg:-symout %g.sym} %{pg:-p} %{p}\
 		   %{S:%{o*}%{!o*:-o %b.s}}%{!S:-o %g.s}\n\
-              %{!S:as %{R} %{j} %{J} %{h} %{d2} %a %{gg:-G %g.sym}\
+              %{!S:as --32 %{R} %{j} %{J} %{h} %{d2} %a %{gg:-G %g.sym}\
                       %g.s %{c:%{o*}%{!o*:-o %w%b.o}}%{!c:-o %d%w%b.o}\n }}}"},
   {".i",
    "cc1 %i %1 %{!Q:-quiet} %{Y*} %{d*} %{m*} %{f*}\
@@ -232,7 +233,7 @@ struct compiler compilers[] =
 };
 
 /* Here is the spec for running the linker, after compiling all files.  */
-char *link_spec = "%{!c:%{!M*:%{!E:%{!S:ld %{o*} %l\
+char *link_spec = "%{!c:%{!M*:%{!E:%{!S:ld -m elf_i386 %{o*} %l\
  %{A} %{d} %{e*} %{N} %{n} %{r} %{s} %{S} %{T*} %{t} %{u*} %{X} %{x} %{z}\
  %{y*} %{!nostdlib:%S} \
  %{L*} %o %{!nostdlib:gnulib%s %{g:-lg} %L}\n }}}}";
@@ -355,8 +356,8 @@ char *user_exec_prefix = 0;
 char *standard_exec_prefix = STANDARD_EXEC_PREFIX;
 char *standard_exec_prefix_1 = "/usr/lib/gcc-";
 
-char *standard_startfile_prefix = "/lib/";
-char *standard_startfile_prefix_1 = "/usr/lib/";
+char *standard_startfile_prefix = "/lib32/";
+char *standard_startfile_prefix_1 = "/usr/lib32/";
 
 /* Clear out the vector of arguments (after a command is executed).  */
 
@@ -1217,8 +1218,6 @@ save_string (s, len)
 pfatal_with_name (name)
      char *name;
 {
-  extern int errno, sys_nerr;
-  extern char *sys_errlist[];
   char *s;
 
   if (errno < sys_nerr)
@@ -1231,8 +1230,6 @@ pfatal_with_name (name)
 perror_with_name (name)
      char *name;
 {
-  extern int errno, sys_nerr;
-  extern char *sys_errlist[];
   char *s;
 
   if (errno < sys_nerr)

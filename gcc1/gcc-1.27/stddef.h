@@ -7,7 +7,7 @@ typedef long ptrdiff_t;
 
 /* Unsigned type of `sizeof' something.  */
 
-typedef unsigned long size_t;
+typedef unsigned int size_t;
 
 /* A null pointer constant.  */
 

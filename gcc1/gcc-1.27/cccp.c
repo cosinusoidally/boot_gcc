@@ -129,6 +129,7 @@ typedef unsigned char U_CHAR;
 #include <sys/stat.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <errno.h>
 
 #ifndef VMS
 #include <sys/file.h>
@@ -5009,9 +5010,6 @@ void
 perror_with_name (name)
      char *name;
 {
-  extern int errno, sys_nerr;
-  extern char *sys_errlist[];
-
   fprintf (stderr, "%s: ", progname);
   if (errno < sys_nerr)
     fprintf (stderr, "%s for `%s'\n", sys_errlist[errno], name);

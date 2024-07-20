@@ -32,9 +32,10 @@ and this notice must be preserved on all copies.  */
 /* Use crt1.o as a startup file and crtn.o as a closing file.  */
 
 #define STARTFILE_SPEC  \
-  "%{pg:gcrt1.o%s}%{!pg:%{p:mcrt1.o%s}%{!p:crt1.o%s}}"
+  "%{pg:gcrt1.o%s}%{!pg:%{p:mcrt1.o%s}%{!p:crt1.o%s}} crti.o%s"
 
-#define LIB_SPEC "%{!p:%{!pg:-lc}}%{p:-lc_p}%{pg:-lc_p} crtn.o%s"
+#define LIB_SPEC "%{!p:%{!pg:-lc}}%{p:-lc_p}%{pg:-lc_p} crtn.o%s" \
+    " -dynamic-linker ld-linux.so.2%s"
 
 /* Specify predefined symbols in preprocessor.  */
 
@@ -45,19 +46,22 @@ and this notice must be preserved on all copies.  */
 #define IDENT_DIRECTIVE
 #define SCCS_DIRECTIVE
 
-/* We want to output SDB debugging information.  */
+/* We don't want to output SDB debugging information.  */
 
-#define SDB_DEBUGGING_INFO
+#undef SDB_DEBUGGING_INFO
 
-/* We don't want to output DBX debugging information.  */
+/* We want to output DBX debugging information.  */
 
-#undef DBX_DEBUGGING_INFO
+#define DBX_DEBUGGING_INFO
 
 /* Implicit library calls should use memcpy, not bcopy, etc.  */
 
 #define TARGET_MEM_FUNCTIONS
 
 /* Don't write a `.optim' pseudo; this assembler doesn't handle them.  */
+
+#undef ASM_FILE_START
+#define ASM_FILE_START(FILE)
 
 #undef ASM_FILE_START_1
 #define ASM_FILE_START_1(FILE)

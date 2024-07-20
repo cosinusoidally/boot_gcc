@@ -19,4 +19,7 @@ void va_end (va_list);		/* Defined in gnulib */
  (AP += __va_rounded_size (TYPE),					\
   *((TYPE *) (AP - __va_rounded_size (TYPE))))
 
+typedef va_list __gnuc_va_list;
+#define _VA_LIST_DEFINED
+
 #endif /* _STDARG_H */

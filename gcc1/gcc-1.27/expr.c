@@ -3619,7 +3619,7 @@ expand_call (exp, target, ignore)
       INIT_CUMULATIVE_ARGS (args_so_far, funtype);
       tem = FUNCTION_ARG (args_so_far, Pmode,
 			  build_pointer_type (TREE_TYPE (funtype)), 1);
-      if (GET_CODE (tem) == MEM)
+      if (tem != 0 && GET_CODE (tem) == MEM)
 	{
 	  actparms = tree_cons (error_mark_node,
 				build (SAVE_EXPR,

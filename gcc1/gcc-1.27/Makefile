@@ -19,7 +19,8 @@
 #and this notice must be preserved on all copies.
 
 
-CFLAGS = -g
+CCLIBFLAGS = -m32
+CFLAGS = -g -m32
 CC = cc
 # OLDCC should not be the GNU C compiler.
 OLDCC = cc
@@ -27,8 +28,8 @@ BISON = bison
 AR = ar
 SHELL = /bin/sh
 
-bindir = /usr/local
-libdir = /usr/local/lib
+bindir = /tmp/gcc1/gcc-1.27/bin
+libdir = /tmp/gcc1/gcc-1.27/lib
 
 # These are what you would need on HPUX:
 # CFLAGS = -Wc,-Ns2000 -Wc,-Ne700
@@ -345,6 +346,8 @@ realclean: clean
 
 # Copy the files into directories where they will be run.
 install: all
+	mkdir -p $(bindir)
+	mkdir -p $(libdir)
 	install cc1 $(libdir)/gcc-cc1
 	install -c -m 755 gnulib $(libdir)/gcc-gnulib
 	if [ -f /usr/bin/ranlib ] ; then  ranlib $(libdir)/gcc-gnulib ;fi
@@ -373,19 +376,19 @@ maketest:
 stage1: force
 	-mkdir stage1
 	mv $(STAGESTUFF) $(STAGE_GCC) stage1
-	-rm stage1/gnulib
+	-rm -f stage1/gnulib
 	-ln gnulib stage1 || cp gnulib stage1
 
 stage2: force
 	-mkdir stage2
 	mv $(STAGESTUFF) $(STAGE_GCC) stage2
-	-rm stage2/gnulib
+	-rm -f stage2/gnulib
 	-ln gnulib stage2 || cp gnulib stage2
 
 stage3: force
 	-mkdir stage3
 	mv $(STAGESTUFF) $(STAGE_GCC) stage3
-	-rm stage3/gnulib
+	-rm -f stage3/gnulib
 	-ln gnulib stage3 || cp gnulib stage3
 
 #In GNU Make, ignore whether `stage*' exists.

@@ -1056,7 +1056,7 @@ dbxout_block (stmt, depth, args)
 	  if (depth > 0)
 	    {
 	      blocknum = next_block_number++;
-	      fprintf (asmfile, ".stabn %d,0,0,LBB%d\n", N_LBRAC, blocknum);
+	      fprintf (asmfile, ".stabn %d,0,0,.LBB%d\n", N_LBRAC, blocknum);
 	    }
 
 	  /* Output the interior of the block.  */
@@ -1064,7 +1064,7 @@ dbxout_block (stmt, depth, args)
 
 	  /* Refer to the marker for the end of the block.  */
 	  if (depth > 0)
-	    fprintf (asmfile, ".stabn %d,0,0,LBE%d\n", N_RBRAC, blocknum);
+	    fprintf (asmfile, ".stabn %d,0,0,.LBE%d\n", N_RBRAC, blocknum);
 	}
       stmt = TREE_CHAIN (stmt);
     }
