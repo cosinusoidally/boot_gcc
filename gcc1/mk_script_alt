@@ -78,10 +78,12 @@ cc -o ${bd}/genpeep ${bd}/genpeep.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genpeep md > ${bd}/insn-peep.c
 cc ${incs} -c ${bd}/insn-peep.c -o ${bd}/insn-peep.o
 
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o final.o final.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o recog.o recog.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/ -c genrecog.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genrecog genrecog.o ${builddir}/rtl.o ${builddir}/obstack.o
+for i in final recog genrecog;
+do
+  cc ${incs} -c -o ${bd}/$i.o $i.c
+done
+
+cc -o genrecog ${bd}/genrecog.o ${builddir}/rtl.o ${builddir}/obstack.o
 ./genrecog md > tmp-insn-recog.c
 ./move-if-change tmp-insn-recog.c insn-recog.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd} -c insn-recog.c
@@ -95,7 +97,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o ${builddir
 ./genoutput md > tmp-insn-output.c
 ./move-if-change tmp-insn-output.c insn-output.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir} -c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o ${bd}/cse.o ${bd}/loop.o ${bd}/flow.o ${bd}/stupid.o ${bd}/combine.o ${bd}/regclass.o ${bd}/local-alloc.o ${bd}/global-alloc.o ${bd}/reload.o ${bd}/reload1.o ${bd}/insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o ${bd}/cse.o ${bd}/loop.o ${bd}/flow.o ${bd}/stupid.o ${bd}/combine.o ${bd}/regclass.o ${bd}/local-alloc.o ${bd}/global-alloc.o ${bd}/reload.o ${bd}/reload1.o ${bd}/insn-peep.o ${bd}/final.o ${bd}/recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
