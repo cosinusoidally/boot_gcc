@@ -1,1 +1,3 @@
 *.swp
+gcc1/build/*
+!gcc1/build/placeholder
