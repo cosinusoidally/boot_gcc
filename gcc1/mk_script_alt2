@@ -1,7 +1,7 @@
 ./mk_build_clean
 
 bd=../build/
-sd=../gcc-1.27/
+sd=../gcc-1.27_refactor/
 incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${sd} "
 
 set -x
