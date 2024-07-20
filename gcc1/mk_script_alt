@@ -59,12 +59,11 @@ ${bd}/gencodes md > insn-codes.h
 cc ${incs} -c genconfig.c -o ${bd}/genconfig.o
 cc ${incs} -o ${bd}/genconfig ${bd}/genconfig.o ${bd}/rtl.o ${bd}/obstack.o
 ${bd}/genconfig md > ${bd}/insn-config.h
-cc ${incs} -c -o ${bd}/expr.o expr.c
-cc ${incs} -c -o ${bd}/stmt.o stmt.c
-cc ${incs} -c -o ${bd}/expmed.o expmed.c
-cc ${incs} -c -o ${bd}/explow.o explow.c
-cc ${incs} -c -o ${bd}/optabs.o optabs.c
-cc ${incs} -c -o ${bd}/varasm.o varasm.c
+
+for i in expr stmt expmed explow optabs varasm;
+do
+  cc ${incs} -c -o ${bd}/$i.o $i.c
+done
 cc ${incs} -c -o ${bd}/symout.o symout.c
 cc ${incs} -c -o ${bd}/dbxout.o dbxout.c
 cc ${incs} -c -o ${bd}/sdbout.o sdbout.c
