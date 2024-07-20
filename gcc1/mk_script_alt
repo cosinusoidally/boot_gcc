@@ -74,7 +74,7 @@ cc -o ${bd}/genemit ${bd}/genemit.o ${builddir}/rtl.o ${builddir}/obstack.o
 ${bd}/genemit md > ${bd}/insn-emit.c
 cc ${incs} -o ${bd}/insn-emit.o -c ${bd}/insn-emit.c
 cc ${incs} -c -o ${bd}/integrate.o integrate.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o jump.o jump.c
+cc ${incs} -c -o ${bd}/jump.o jump.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o cse.o cse.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${bd}  -c -o loop.o loop.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o flow.o flow.c
@@ -107,7 +107,7 @@ cc -Iinclude -I/usr/include/i386-linux-gnu/  -o genoutput genoutput.o ${builddir
 ./genoutput md > tmp-insn-output.c
 ./move-if-change tmp-insn-output.c insn-output.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -I ${builddir} -c insn-output.c
-cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
+cc -Iinclude -I/usr/include/i386-linux-gnu/  -o cc1 ${builddir}/toplev.o ${builddir}/version.o ${builddir}/c-parse.tab.o ${builddir}/tree.o ${builddir}/print-tree.o ${builddir}/c-decl.o ${builddir}/c-typeck.o ${builddir}/c-convert.o ${builddir}/stor-layout.o ${builddir}/fold-const.o ${builddir}/rtl.o ${bd}/expr.o ${bd}/stmt.o ${bd}/expmed.o ${bd}/explow.o ${bd}/optabs.o ${bd}/varasm.o ${bd}/symout.o ${bd}/dbxout.o ${bd}/sdbout.o ${bd}/emit-rtl.o ${bd}/insn-emit.o ${bd}/integrate.o ${bd}/jump.o cse.o loop.o flow.o stupid.o combine.o regclass.o local-alloc.o global-alloc.o reload.o reload1.o insn-peep.o final.o recog.o insn-recog.o insn-extract.o insn-output.o ${builddir}/obstack.o
 cc -Iinclude -I/usr/include/i386-linux-gnu/ -DGCC_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/gcc-include\" \
           -DGPLUSPLUS_INCLUDE_DIR=\"/tmp/gcc1/gcc-1.27/lib/g++-include\" -c cccp.c
 cc -Iinclude -I/usr/include/i386-linux-gnu/   -c -o cexp.o cexp.c
