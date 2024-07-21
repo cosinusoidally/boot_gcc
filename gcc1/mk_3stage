@@ -1,4 +1,8 @@
 set -x
+
+destdir=/tmp/gcc1/gcc-1.27/
+builddir=build
+
 ./mk_clean
 set -e
 echo "build bison"
@@ -7,9 +11,15 @@ echo "stage 1 gcc-1.27 build"
 ./mk_script_alt2
 ./mk_install_alt2
 
-export PATH=/tmp/gcc1/gcc-1.27/bin/:$PATH
+export PATH=$destdir/bin/:$PATH
 
 echo "stage 2 gcc-1.27 build"
-ln -s /tmp/gcc1/gcc-1.27/bin/gcc /tmp/gcc1/gcc-1.27/bin/cc
+ln -s ${destdir}/bin/gcc ${destdir}/bin/cc
 ./mk_script_alt2
 ./mk_install_alt2
+
+echo "stage 3 gcc-1.27 build"
+ln -s ${destdir}/bin/gcc ${destdir}/bin/cc
+./mk_script_alt2
+
+diff -u -s ${builddir}/gcc ${destdir}/bin/gcc
