@@ -1,6 +1,15 @@
 set -x
 ./mk_clean
 set -e
+echo "build bison"
 ./mk_bison
+echo "stage 1 gcc-1.27 build"
+./mk_script_alt2
+./mk_install_alt2
+
+export PATH=/tmp/gcc1/gcc-1.27/bin/:$PATH
+
+echo "stage 2 gcc-1.27 build"
+ln -s /tmp/gcc1/gcc-1.27/bin/gcc /tmp/gcc1/gcc-1.27/bin/cc
 ./mk_script_alt2
 ./mk_install_alt2
