@@ -5,3 +5,4 @@ set -e
 cd bison-1.00
 make
 make install
+make clean
