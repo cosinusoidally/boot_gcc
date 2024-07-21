@@ -4,6 +4,8 @@ destdir=/tmp/gcc1/gcc-1.27/
 builddir=build
 
 ./mk_clean
+./mk_build_clean
+
 set -e
 echo "build bison"
 ./mk_bison
