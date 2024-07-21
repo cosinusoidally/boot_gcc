@@ -1,4 +1,13 @@
-I'm doing the build inside an Ubuntu bionic buildd:
+tl;dr
+
+./mk_3stage
+
+Will do a 3 stage bootstrap of gcc-1.27 . Note this currently *must* be run from
+a i386 Ubuntu bionic buildd chroot (since for now we hardcode the use of gcc-7
+for the build of gnulib, plus gcc is fussy about include paths and crt locations
+which vary between distros).
+
+To set up the chroot:
 
 time sudo debootstrap --arch=i386 --variant=buildd bionic bionic_buildd_i386
 
@@ -8,7 +17,8 @@ and then bind mount:
 /dev
 /dev/shm
 
-into the rootfs and chroot in
+into the rootfs and chroot in (you may want to add yourself a non-root user
+with adduser).
 
 gcc 1.27 is patched with:
 
