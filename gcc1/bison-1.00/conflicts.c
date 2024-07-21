@@ -36,7 +36,9 @@ extern short *LAruleno;
 extern short *lookaheads;
 extern int verboseflag;
 
+/* ljw HACK fix don't redeclare alloca
 extern char *alloca ();
+*/
 
 char any_conflicts;
 char *conflicts;

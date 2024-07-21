@@ -1,11 +1,11 @@
 # Makefile for bison
 
-DESTDIR=
+DESTDIR=/tmp/gcc1/bison-1.00/
 # where the installed binary goes
-BINDIR = $(DESTDIR)/usr/local
+BINDIR = $(DESTDIR)/bin
 
 # where the parsers go
-PARSERDIR = $(DESTDIR)/usr/local/lib
+PARSERDIR = $(DESTDIR)/lib
 
 # names of parser files
 PFILE = bison.simple
