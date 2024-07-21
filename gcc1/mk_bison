@@ -1,7 +1,6 @@
 set -x
-rm -r /tmp/gcc1/bison-1.00/
-cd bison-1.00
-make clean
+./mk_clean_bison
 
 set -e
+cd bison-1.00
 make
