@@ -4,5 +4,7 @@ set -x
 set -e
 cd bison-1.00
 make
+mkdir -p /tmp/gcc1/bison-1.00/bin
+mkdir -p /tmp/gcc1/bison-1.00/lib
 make install
 make clean
