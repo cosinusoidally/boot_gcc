@@ -1,4 +1,6 @@
-cd gcc-1.27
+rm -r /tmp/gcc1/gcc-1.27/
+
+cd gcc-1.27_refactor
 
 set -x
 set -e
