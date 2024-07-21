@@ -25,3 +25,7 @@ ln -s ${destdir}/bin/gcc ${destdir}/bin/cc
 ./mk_script_alt2
 
 diff -u -s ${builddir}/gcc ${destdir}/bin/gcc
+diff -u -s ${builddir}/cc1 ${destdir}/lib/gcc-cc1
+diff -u -s ${builddir}/cpp ${destdir}/lib/gcc-cpp
+
+echo "gcc-1.27 bootstrap OK"
