@@ -17,3 +17,8 @@ https://github.com/cosinusoidally/tcc_bootstrap_alt
 
 So it will be possible to start from nothing and quickly arrive at a usable
 version of GCC.
+
+It's worth noting that gcc-1.27 bootstraps quickly. The three stage bootstrap
+in the gcc1/ directory takes a few seconds. The slowest part of the bootstrap is
+currently the parts built by the system version of gcc (which has got much
+slower over the last 30+ years).
