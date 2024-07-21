@@ -40,7 +40,8 @@ echo "driver built"
 cc ${incs} -c -o ${bd}/toplev.o toplev.c
 
 # FIXME ljw this should be regenerated with bison
-cc ${incs} -c -o ${bd}/c-parse.tab.o c-parse.tab.c
+cp ../gcc-1.27/c-parse.tab.c ${bd}
+cc ${incs} -c -o ${bd}/c-parse.tab.o ${bd}/c-parse.tab.c
 
 for i in tree print-tree c-decl c-typeck c-convert stor-layout fold-const rtl genflags;
 do
