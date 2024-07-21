@@ -1,1 +1,6 @@
+set -x
 ./mk_clean
+set -e
+./mk_bison
+./mk_script_alt2
+./mk_install_alt2
