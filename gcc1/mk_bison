@@ -4,3 +4,4 @@ cd bison-1.00
 make clean
 
 set -e
+make
