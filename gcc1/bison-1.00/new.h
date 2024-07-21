@@ -20,8 +20,9 @@ notice and this notice must be preserved on all copies.
 
 #define	NEW(t)		((t *) allocate((unsigned) sizeof(t)))
 #define	NEW2(n, t)	((t *) allocate((unsigned) ((n) * sizeof(t))))
-
+/* ljw HACK fix
 #define	FREE(x)		(x && free((char *) (x)))
-
+*/
+#define	FREE(x)		(free((char *) (x)))
 
 extern	char *allocate();
