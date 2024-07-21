@@ -1,6 +1,7 @@
 set -x
 
 ./mk_clean
+./mk_bison
 
 set -e
 ./mk_script_alt
