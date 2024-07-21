@@ -1,1 +1,19 @@
-# boot_gcc
+Boot GCC
+========
+
+Bootstrapping gcc from version 1.27 up. Very early stages atm. Only have a self
+hosted version of gcc-1.27 atm (see gcc1/).
+
+Not sure how far I will get, might aim to just use this to quickly bootstrap a
+useful version of gcc (which could in fact be 1.27). In this repo I will also
+bootstrap the required versions of GNU gas and ld (plus Bison as early versions
+of gcc use bison grammar definitions).
+
+At the moment I only have gcc-1.27 and bison-1.00 in the tree, but the general
+plan will be to pull in a version of the GNU assembler (gas) too. The broader
+idea is to allow this to be bootstrapped from:
+
+https://github.com/cosinusoidally/tcc_bootstrap_alt
+
+So it will be possible to start from nothing and quickly arrive at a usable
+version of GCC.
