@@ -8,7 +8,7 @@ cd bison-1.00
 rm -r ${bd}
 mkdir ${bd}
 
-for i in LR0 allocate closure conflicts derives;
+for i in LR0 allocate closure conflicts derives getargs gram lalr lex main nullable output print reader symtab warshall;
 do
   cc -g -c -o ${bd}/$i.o $i.c
 done
@@ -38,3 +38,4 @@ cp ${bd}/bison .
 cd ..
 
 ./mk_install_bison
+echo "bison built and installed OK"
