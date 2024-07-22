@@ -5,6 +5,5 @@ cd bison-1.00
 mkdir -p /tmp/gcc1/bison-1.00/bin
 mkdir -p /tmp/gcc1/bison-1.00/lib
 
-cp bison /tmp/gcc1/bison-1.00/bin
+cp ../build/bison-1.00/bison /tmp/gcc1/bison-1.00/bin
 cp bison.simple bison.hairy /tmp/gcc1/bison-1.00/lib
-make clean
