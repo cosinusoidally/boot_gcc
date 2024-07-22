@@ -13,20 +13,7 @@ do
   cc -g -c -o ${bd}/$i.o $i.c
 done
 
-cc -c -g -DXPFILE=\"/tmp/gcc1/bison-1.00//lib/bison.simple\" -DXPFILE1=\"/tmp/gcc1/bison-1.00//lib/bison.hairy\" files.c
-cc -g   -c -o getargs.o getargs.c
-cc -g   -c -o gram.o gram.c
-cc -g   -c -o lalr.o lalr.c
-cc -g   -c -o lex.o lex.c
-cc -g   -c -o main.o main.c
-cc -g   -c -o nullable.o nullable.c
-cc -g   -c -o output.o output.c
-cc -g   -c -o print.o print.c
-cc -g   -c -o reader.o reader.c
-cc -g   -c -o symtab.o symtab.c
-cc -g   -c -o warshall.o warshall.c
-
-cp *o ${bd}
+cc -c -g -DXPFILE=\"/tmp/gcc1/bison-1.00//lib/bison.simple\" -DXPFILE1=\"/tmp/gcc1/bison-1.00//lib/bison.hairy\" files.c -o ${bd}/files.o
 
 pushd .
 cd ${bd}
