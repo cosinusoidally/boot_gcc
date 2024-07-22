@@ -1,10 +1,32 @@
 set -x
 ./mk_clean_bison
 
+bd=../build/bison-1.00
+
 set -e
 cd bison-1.00
-make
-mkdir -p /tmp/gcc1/bison-1.00/bin
-mkdir -p /tmp/gcc1/bison-1.00/lib
-make install
-make clean
+rm -r ${bd}
+mkdir ${bd}
+
+cc -g   -c -o LR0.o LR0.c
+cc -g   -c -o allocate.o allocate.c
+cc -g   -c -o closure.o closure.c
+cc -g   -c -o conflicts.o conflicts.c
+cc -g   -c -o derives.o derives.c
+cc -c -g -DXPFILE=\"/tmp/gcc1/bison-1.00//lib/bison.simple\" -DXPFILE1=\"/tmp/gcc1/bison-1.00//lib/bison.hairy\" files.c
+cc -g   -c -o getargs.o getargs.c
+cc -g   -c -o gram.o gram.c
+cc -g   -c -o lalr.o lalr.c
+cc -g   -c -o lex.o lex.c
+cc -g   -c -o main.o main.c
+cc -g   -c -o nullable.o nullable.c
+cc -g   -c -o output.o output.c
+cc -g   -c -o print.o print.c
+cc -g   -c -o reader.o reader.c
+cc -g   -c -o symtab.o symtab.c
+cc -g   -c -o warshall.o warshall.c
+cc  -o bison LR0.o allocate.o closure.o conflicts.o derives.o files.o getargs.o gram.o lalr.o lex.o main.o nullable.o output.o print.o reader.o symtab.o warshall.o
+
+cd ..
+
+./mk_install_bison

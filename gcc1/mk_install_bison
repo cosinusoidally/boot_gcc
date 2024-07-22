@@ -1,0 +1,8 @@
+set -x
+set -e
+cd bison-1.00
+rm -r /tmp/gcc1/bison-1.00/
+mkdir -p /tmp/gcc1/bison-1.00/bin
+mkdir -p /tmp/gcc1/bison-1.00/lib
+make install
+make clean
