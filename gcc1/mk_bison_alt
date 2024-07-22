@@ -8,11 +8,11 @@ cd bison-1.00
 rm -r ${bd}
 mkdir ${bd}
 
-cc -g   -c -o LR0.o LR0.c
-cc -g   -c -o allocate.o allocate.c
-cc -g   -c -o closure.o closure.c
-cc -g   -c -o conflicts.o conflicts.c
-cc -g   -c -o derives.o derives.c
+for i in LR0 allocate closure conflicts derives;
+do
+  cc -g -c -o ${bd}/$i.o $i.c
+done
+
 cc -c -g -DXPFILE=\"/tmp/gcc1/bison-1.00//lib/bison.simple\" -DXPFILE1=\"/tmp/gcc1/bison-1.00//lib/bison.hairy\" files.c
 cc -g   -c -o getargs.o getargs.c
 cc -g   -c -o gram.o gram.c
@@ -25,7 +25,15 @@ cc -g   -c -o print.o print.c
 cc -g   -c -o reader.o reader.c
 cc -g   -c -o symtab.o symtab.c
 cc -g   -c -o warshall.o warshall.c
+
+cp *o ${bd}
+
+pushd .
+cd ${bd}
 cc  -o bison LR0.o allocate.o closure.o conflicts.o derives.o files.o getargs.o gram.o lalr.o lex.o main.o nullable.o output.o print.o reader.o symtab.o warshall.o
+popd
+
+cp ${bd}/bison .
 
 cd ..
 
