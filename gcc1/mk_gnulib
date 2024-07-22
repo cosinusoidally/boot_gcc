@@ -1,0 +1,31 @@
+bd=../build/
+sd=../gcc-1.27/
+incs="-Iinclude -I/usr/include/i386-linux-gnu/ -I${bd} -I${sd} "
+
+set -x
+set -e
+
+cd gcc-1.27
+
+pushd .
+
+mkdir ${bd}/libtemp
+cd ${bd}/libtemp;
+echo "build gnulib with gcc-7 (gcc-1.27 can't compile this)"
+for name in _eprintf _umulsi3 _mulsi3 _udivsi3 _divsi3 _umodsi3 _modsi3 _lshrsi3 _lshlsi3 _ashrsi3 _ashlsi3 _divdf3 _muldf3 _negdf2 _adddf3 _subdf3 _cmpdf2 _fixunsdfsi _fixunsdfdi _fixdfsi _fixdfdi _floatsidf _floatdidf _truncdfsf2 _extendsfdf2 _addsf3 _negsf2 _subsf3 _cmpsf2 _mulsf3 _divsf3;
+do
+  echo ${name};
+  ln ../${sd}/gnulib.c ${name}.c;
+  gcc-7 -m32 -O -I../${sd} -c -DL${name} ${name}.c;
+  ar qc gnulib ${name}.o;
+done
+
+cd ..
+
+mv libtemp/gnulib .
+rm -r libtemp
+
+pwd
+if [ -f /usr/bin/ranlib ] ; then  ranlib gnulib ;fi
+
+popd
