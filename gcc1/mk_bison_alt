@@ -1,12 +1,14 @@
 set -x
-./mk_clean_bison
 
 bd=../build/bison-1.00
 
-set -e
 cd bison-1.00
 rm -r ${bd}
 mkdir ${bd}
+cd ..
+
+set -e
+cd bison-1.00
 
 for i in LR0 allocate closure conflicts derives getargs gram lalr lex main nullable output print reader symtab warshall;
 do

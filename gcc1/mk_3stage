@@ -8,7 +8,7 @@ builddir=build
 
 set -e
 echo "build bison"
-./mk_bison
+./mk_bison_alt
 echo "stage 1 gcc-1.27 build"
 ./mk_script_alt2
 ./mk_install_alt2
